@@ -1,0 +1,28 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+<h1 class="h1">Weterynarz</h1>
+<h2 class="display-5">{{ vetName }}</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Details</th>
+    </tr>
+
+    {% set vetNum = 0 %}
+
+    {% for vet in vets %}
+        <tr>
+            <td>{{ vetNum }}</td>
+            <td>{{ vet.name }}</td>
+            <td>{{ vet.lastName }}</td>
+            <td><a href="/vet/{{ vetNum }}/details" class="btn btn-outline-info">More</a></td>
+        </tr>
+        {% set vetNum = vetNum + 1 %}
+    {% endfor %}
+</table>

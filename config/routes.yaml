@@ -1,3 +1,35 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+vet:
+  path: vet/{vetNum}
+  controller: App\Controller\weterynarz::displayVet
+  defaults:
+      vetNum: 0
+  requirements:
+      vetNum: '\d+'
+
+animal:
+  path: vet/{vetNum}/details
+  controller: App\Controller\weterynarz::displayVetDetails
+  defaults:
+      vetNum: 0
+  requirements:
+      vetNum: '\d+'
+
+owner: 
+    path: owner
+    controller: App\Controller\weterynarz::displayOwner
+
+ownerDetails: 
+    path: owner/{ownNum}
+    controller: App\Controller\weterynarz::displayOwnerDetails
+    defaults:
+        ownNum: 0
+    requirements:
+        ownNum: '\d+'
+
+animalDetails:
+    path: animal/{aniNum}
+    controller: App\Controller\weterynarz::displayAnimalDetails
+    defaults:
+        aniNum: 0
+    requirements:
+        aniNum: '\d+'    

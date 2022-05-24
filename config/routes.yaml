@@ -1,5 +1,9 @@
+default:
+    path: /
+    controller: App\Controller\defaultController:displaySelection
+
 vet:
-  path: vet/{vetNum}
+  path: vet
   controller: App\Controller\weterynarz::displayVet
   defaults:
       vetNum: 0

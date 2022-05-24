@@ -28,7 +28,6 @@
             }
 
             return $this->render('displayVet.html.twig', [
-                'vetName' => $vet[$num]->getName() . " " . $vet[$num]->getLastName(),
                 'vets' => $vets,
             ]);
         }
@@ -158,6 +157,8 @@
 
             return $this->render('displayAnimalDetails.html.twig', [
                 'animal' => $animal[$aniNum]->getName(),
+                'species' => $animal[$aniNum]->getSpecies(),
+                'age' => $animal[$aniNum]->getAge(),
                 'visits' => $visits
             ]);
         }

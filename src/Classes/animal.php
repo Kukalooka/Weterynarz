@@ -29,7 +29,7 @@
         private int $age;
 
         public function getAge(){
-            return $this->species;
+            return $this->age;
         }
 
         public function setAge(int $age){

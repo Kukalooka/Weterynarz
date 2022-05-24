@@ -3,22 +3,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
-<h1 class="h1">Zwierzak</h1>
-<h2 class="display-5">{{ animal }}</h2>
-<h2 class="display-6">{{ species }} - {{ age }}</h2>
-
-<table class="table table-striped">
-    <tr>
-        <th>Date</th>
-        <th>Animal</th>
-        <th>Vet</th>
-    </tr>
-
-    {% for visit in visits %}
-        <tr>
-            <td>{{ visit.date }}</td>
-            <td>{{ visit.animal }}</td>
-            <td>{{ visit.vet }}</td>
-        </tr>
-    {% endfor %}
-</table>
+<h1 class="h1">Witaj u weterynarza!</h1>
+<h2 class="display-5">Lista weterynarzy</h2>
+<a href="/vet" class="btn btn-outline-primary">Pokaż</a>
+<h2 class="display-5">Lista klientów</h2>
+<a href="/owner" class="btn btn-outline-primary">Pokaż</a>

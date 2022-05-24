@@ -5,16 +5,12 @@ default:
 vet:
   path: vet
   controller: App\Controller\weterynarz::displayVet
-  defaults:
-      vetNum: 0
-  requirements:
-      vetNum: '\d+'
 
 animal:
   path: vet/{vetNum}/details
   controller: App\Controller\weterynarz::displayVetDetails
   defaults:
-      vetNum: 0
+      vetNum: 1
   requirements:
       vetNum: '\d+'
 
@@ -26,7 +22,7 @@ ownerDetails:
     path: owner/{ownNum}
     controller: App\Controller\weterynarz::displayOwnerDetails
     defaults:
-        ownNum: 0
+        ownNum: 1
     requirements:
         ownNum: '\d+'
 
@@ -34,6 +30,6 @@ animalDetails:
     path: animal/{aniNum}
     controller: App\Controller\weterynarz::displayAnimalDetails
     defaults:
-        aniNum: 0
+        aniNum: 1
     requirements:
         aniNum: '\d+'    

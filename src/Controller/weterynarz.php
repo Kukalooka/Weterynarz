@@ -8,6 +8,12 @@
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+    use Symfony\Component\Serializer\Encoder\JsonEncoder;
+    use Symfony\Component\Serializer\Encoder\XmlEncoder;
+    use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+    use Symfony\Component\Serializer\Serializer;
+    use Symfony\Component\Serializer\SerializerInterface;
+
     use App\Entity\Vet;
     use App\Entity\Owner;
     use App\Entity\Animal;
@@ -23,134 +29,29 @@
 
     class weterynarz extends AbstractController{
 
-        public function displayVet(ManagerRegistry $doctrine, Request $request): Response{
-            $repository = $doctrine->getRepository(Vet::class);
-            
-            $vets = $repository->findAll();
-
-            $vetInfo = [];
-
-            for($i = 0; $i < sizeof($vets); $i++){
-                $vet = ['name' => $vets[$i]->getName(), 'lastName' => $vets[$i]->getLastname()];
-
-                array_push($vetInfo, $vet);
-            }
-
+        public function list(ManagerRegistry $doctrine, Request $request, SerializerInterface $serializer): Response{
             return $this->render('displayVet.html.twig', [
-                'vets' => $vetInfo,
+                'vets' => $doctrine->getRepository(Vet::class)->findAll(),
             ]);
         }
 
-        public function displayVetDetails(ManagerRegistry $doctrine, Request $request): Response{
-            $routeParameters = $request->attributes->get('_route_params');
-            $vetNum = $routeParameters['vetNum'];
-
-            $repository = $doctrine->getRepository(Vet::class);
-
-            $vet = $repository->find($vetNum);
-            $animals = $vet->getAnimals();
-            $visits = $vet->getVisits();
-
-            $animalList = [];
-
-
-            for($i = 0; $i < sizeof($animals); $i++){
-                $animal = ['name' => $animals[$i]->getName(), 
-                            'species' => $animals[$i]->getSpecies(), 
-                            'age' => $animals[$i]->getAge(),
-                            'owner' => $animals[$i]->getOwnerId()->getName()];
-
-                array_push($animalList, $animal);
+        public function details(ManagerRegistry $doctrine, Request $request, SerializerInterface $serializer): Response{
+            if($doctrine->getRepository(Vet::class)->find($request->attributes->get('_route_params')['num'])){
+                return $this->render('displayVetDetails.html.twig', [
+                    'vetName' => $doctrine->getRepository(Vet::class)->find($request->attributes->get('_route_params')['num']),
+                    'animals' => $serializer->normalize(
+                        $doctrine->getRepository(Vet::class)->find($request->attributes->get('_route_params')['num'])->getAnimals(), 
+                        'json', ['groups' => ['animal', 'ownerPlug', 'owner']]),
+                    'visits' => $serializer->normalize(
+                        $doctrine->getRepository(Vet::class)->find($request->attributes->get('_route_params')['num'])->getVisits(), 
+                        'json', ['groups' => ['visits', 'vet', 'animal']])
+                ]);
             }
-
-            $visitList = [];
-
-            for($i = 0; $i < sizeof($visits); $i++){
-                $visit = ['date' => $visits[$i]->getDate()->format('y-m-d'),
-                            'vet' => $visits[$i]->getVetId()->getName(),
-                            'animal' => $visits[$i]->getAnimalId()->getName(),];
-
-                array_push($visitList, $visit);
+            else{
+                return $this->render('displayError.html.twig', [
+                    'message' => "A vet with this ID does not exist",
+                ]);
             }
-
-
-            return $this->render('displayVetDetails.html.twig', [
-                'vetName' => $vet->getName() . " " . $vet->getLastName(),
-                'animals' => $animalList,
-                'visits' => $visitList
-            ]);
-        }
-
-        public function displayOwner(ManagerRegistry $doctrine, Request $request): Response{
-            $repository = $doctrine->getRepository(Owner::class);
-            
-            $owners = $repository->findAll();
-
-            $ownerList = [];
-
-            for($i = 0; $i < sizeof($owners); $i++){
-                $owner = ['name' => $owners[$i]->getName(),
-                            'lastName' => $owners[$i]->getLastname()];
-                array_push($ownerList, $owner);
-            } 
-
-            return $this->render('displayOwner.html.twig', [
-                'owners' => $ownerList,
-            ]);
-        }
-
-        public function displayOwnerDetails(ManagerRegistry $doctrine, Request $request): Response{
-            $routeParameters = $request->attributes->get('_route_params');
-            $ownNum = $routeParameters['ownNum'];
-
-            $repository = $doctrine->getRepository(Owner::class);
-
-            $owner = $repository->find($ownNum);
-            $animals = $owner->getAnimals();
-
-            $animalList = [];
-
-            for($i = 0; $i < sizeof($animals); $i++){
-                $animal = ['name' => $animals[$i]->getName(), 
-                            'species' => $animals[$i]->getSpecies(), 
-                            'age' => $animals[$i]->getAge(),
-                            'owner' => $owner->getName(),
-                            'id' => $animals[$i]->getId()];
-
-                array_push($animalList, $animal);
-            }
-
-            return $this->render('displayOwnerDetails.html.twig', [
-                'owner' => $owner->getName(),
-                'animals' => $animalList,
-            ]);
-        }
-
-        public function displayAnimalDetails(ManagerRegistry $doctrine, Request $request): Response{
-            $routeParameters = $request->attributes->get('_route_params');
-            $aniNum = $routeParameters['aniNum'];
-
-            $repository = $doctrine->getRepository(Animal::class);
-
-            $animal = $repository->find($aniNum);
-            $visits = $animal->getVisits();
-
-            $visitList = [];
-
-            for($i = 0; $i < sizeof($visits); $i++){
-                $visit = ['date' => $visits[$i]->getDate()->format('y-m-d'),
-                            'vet' => $visits[$i]->getVetId()->getName(),
-                            'animal' => $visits[$i]->getAnimalId()->getName(),];
-
-                array_push($visitList, $visit);
-            }
-
-            return $this->render('displayAnimalDetails.html.twig', [
-                'animal' => $animal->getName(),
-                'species' => $animal->getSpecies(),
-                'age' => $animal->getAge(),
-                'visits' => $visitList
-            ]);
         }
     }
 ?>

@@ -1,0 +1,37 @@
+header{
+    background-image: url("../Images/BIG_hilariousSpinningDog.gif");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    height: 700px;
+}
+
+.altHeader{
+    background-image: url("../Images/BIG_saddenedNotSpinningDog.gif");
+}
+
+.blueText{
+    color:rgb(161, 214, 218);
+}
+
+.redText{
+    color:rgb(131, 20, 20);
+}
+
+.middleMan{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.middleUpperMan{
+    flex-direction: column;
+}
+
+table{
+    max-width: 1200px;
+    margin: auto;
+}

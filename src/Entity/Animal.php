@@ -6,13 +6,21 @@ use App\Repository\AnimalRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AnimalRepository::class)
+ * @ApiResource(
+ *  itemOperations={"get"},
+ *  collectionOperations={"get"}
+ * )
  */
+
 class Animal
 {
     /**
+     * @Groups("animal")
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -20,16 +28,19 @@ class Animal
     private $id;
 
     /**
+     * @Groups("animal")
      * @ORM\Column(type="string", length=32)
      */
     private $name;
 
     /**
+     * @Groups("animal")
      * @ORM\Column(type="string", length=32)
      */
     private $species;
 
     /**
+     * @Groups("animal")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $age;
@@ -37,12 +48,14 @@ class Animal
     /**
      * @ORM\ManyToOne(targetEntity=Owner::class, inversedBy="animals")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("ownerPlug")
      */
     private $owner_id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Vet::class, inversedBy="animals")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("vetPlug")
      */
     private $vet_id;
 

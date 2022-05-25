@@ -6,9 +6,15 @@ use App\Repository\VetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=VetRepository::class)
+ * @ApiResource(
+ *  itemOperations={"get"},
+ *  collectionOperations={"get"}
+ * )
  */
 class Vet
 {
@@ -16,16 +22,19 @@ class Vet
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("vet")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Groups("vet")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Groups("vet")
      */
     private $lastname;
 

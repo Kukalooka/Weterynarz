@@ -1,24 +1,44 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <header>
+            {% include 'elements/navbar.twig' %}
+            <div class="middleMan middleUpperMan">
+                <h1 class="h1 blueText">Zwierzak</h1>
+                <h2 class="display-5 blueText">{{ animal.name }}</h2>
+                <h3 class="display-6 blueText">{{ animal.species }} - {{ animal.age }} lat</h3>
+            </div>
+        </header>
+        <section>
+            <h2 class="display-5 mt-3 text-center">Wizyty</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Date</th>
+                    <th>Animal</th>
+                    <th>Vet</th>
+                </tr>
 
-<h1 class="h1">Zwierzak</h1>
-<h2 class="display-5">{{ animal }}</h2>
-<h2 class="display-6">{{ species }} - {{ age }}</h2>
-
-<table class="table table-striped">
-    <tr>
-        <th>Date</th>
-        <th>Animal</th>
-        <th>Vet</th>
-    </tr>
-
-    {% for visit in visits %}
-        <tr>
-            <td>{{ visit.date }}</td>
-            <td>{{ visit.animal }}</td>
-            <td>{{ visit.vet }}</td>
-        </tr>
-    {% endfor %}
-</table>
+                {% for visit in visits %}
+                    <tr>
+                        <td>{{ visit.date|date("d/m/Y") }}</td>
+                        <td>{{ visit.animal_id.name }}</td>
+                        <td>{{ visit.vet_id.name }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

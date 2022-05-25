@@ -4,32 +4,32 @@ default:
 
 vet:
   path: vet
-  controller: App\Controller\weterynarz::displayVet
+  controller: App\Controller\weterynarz::list
 
 animal:
-  path: vet/{vetNum}/details
-  controller: App\Controller\weterynarz::displayVetDetails
+  path: vet/{num}/details
+  controller: App\Controller\weterynarz::details
   defaults:
-      vetNum: 1
+      num: 1
   requirements:
-      vetNum: '\d+'
+      num: '\d+'
 
 owner: 
     path: owner
-    controller: App\Controller\weterynarz::displayOwner
+    controller: App\Controller\klienci::list
 
 ownerDetails: 
-    path: owner/{ownNum}
-    controller: App\Controller\weterynarz::displayOwnerDetails
+    path: owner/{num}
+    controller: App\Controller\klienci::details
     defaults:
-        ownNum: 1
+        num: 1
     requirements:
-        ownNum: '\d+'
+        num: '\d+'
 
 animalDetails:
-    path: animal/{aniNum}
-    controller: App\Controller\weterynarz::displayAnimalDetails
+    path: animal/{num}
+    controller: App\Controller\klienci::animal
     defaults:
-        aniNum: 1
+        num: 1
     requirements:
-        aniNum: '\d+'    
+        num: '\d+'    

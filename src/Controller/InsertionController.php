@@ -21,9 +21,9 @@ class InsertionController extends AbstractController
     {
         $entityManager = $doctrine->getManager();
 
-        // $vet = new Vet();
-        // $vet->setName('Stanislaw');
-        // $vet->setLastname('Borek');
+        $vet = new Vet();
+        $vet->setName('Tostowy');
+        $vet->setLastname('Tost');
 
         // $owner = new Owner();
         // $owner->setName('Grzegorz');
@@ -42,13 +42,13 @@ class InsertionController extends AbstractController
         // $visit->setAnimalId($doctrine->getRepository(Animal::class)->find(3));
 
 
-        // $entityManager->persist($vet);
+        $entityManager->persist($vet);
         // $entityManager->persist($owner);
         // $entityManager->persist($animal);
         // $entityManager->persist($visit);
 
         $entityManager->flush();
         
-        return new Response('Saved with id ' . $animal->getId());
+        return new Response('Saved with id ' . $vet->getId());
     }
 }

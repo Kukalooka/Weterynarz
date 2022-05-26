@@ -58,10 +58,10 @@
             }
         }
 
-        public function summary(ManagerRegistry $doctrine, Request $request, Connection $connection): Response{   
-            return $this->render('displaySummary.html.twig', [
-                'views' => $connection->fetchAllAssociative('SELECT * FROM summary2022')
-            ]);
-        }  
+        // public function summary(ManagerRegistry $doctrine, Request $request, Connection $connection): Response{   
+        //     return $this->render('displaySummary.html.twig', [
+        //         'views' => $connection->fetchAllAssociative('SELECT * FROM summary2022')
+        //     ]);
+        // }  
     }
 ?>

@@ -14,6 +14,9 @@ animal:
   requirements:
       num: '\d+'
 
+vetSummary:
+    path: vet/summary
+    controller: App\Controller\weterynarz::summary
 owner: 
     path: owner
     controller: App\Controller\klienci::list

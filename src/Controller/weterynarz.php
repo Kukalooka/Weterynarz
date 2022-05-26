@@ -5,6 +5,9 @@
     use Symfony\Component\Routing\Annotation\Route;
     use Symfony\Component\HttpFoundation\Request;
     use Doctrine\Persistence\ManagerRegistry;
+    use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+    use Doctrine\DBAL\Connection;
+    use Doctrine\DBAL\Statement;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -23,6 +26,7 @@
     use App\Repository\OwnerRepository;
     use App\Repository\AnimalRepository;
     use App\Repository\VisitsRepository;
+    use App\Repository\view;
 
     use \Datetimeimmutable;
     use \Datetime;
@@ -53,5 +57,11 @@
                 ]);
             }
         }
+
+        public function summary(ManagerRegistry $doctrine, Request $request, Connection $connection): Response{   
+            return $this->render('displaySummary.html.twig', [
+                'views' => $connection->fetchAllAssociative('SELECT * FROM summary2022')
+            ]);
+        }  
     }
 ?>

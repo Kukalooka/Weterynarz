@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <header>
+            {% include 'elements/navbar.twig' %}
+            <div class="middleMan middleUpperMan">
+                <h1 class="h1 blueText">Weterynarze</h1>
+                <h2 class="display-5 blueText">Podsumowanie</h2>
+            </div>
+        </header>
+        <section>
+            <h2 class="display-5 mt-3 text-center">Podsumowanie</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Month</th>
+                    <th>Name</th>
+                    <th>Visits</th>
+                    <th>Animals</th>
+                </tr>
+
+                {% for view in views %}
+                    <tr>
+                        <td>{{ view.miesiac }}</td>
+                        <td>{{ view.name }}</td>
+                        <td>{{ view.visits }}</td>
+                        <td>{{ view.animals }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
